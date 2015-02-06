@@ -6,11 +6,11 @@ and a cookbook file with a python class to help create correspondingly-formatted
 ## Berkshelf and librarian
 ```ruby
   # Berkshelf:
-  cookbook 'appwatch', github: 'flatrocks/cookbook-appwatch', tag: '0.3.0'
+  cookbook 'appwatch', github: 'flatrocks/cookbook-appwatch', tag: '0.1.0'
 
 
   # librarian-chef:
-  cookbook 'appwatch', github: 'flatrocks/cookbook-appwatch', ref: '0.3.0'
+  cookbook 'appwatch', github: 'flatrocks/cookbook-appwatch', ref: '0.1.0'
 ```
 
 ## Appwatch service for logwatch
