@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+# custom service to capture app-generated items from the syslog
+# pattern is
+#   [timestamp] APP[app-name]: ERROR Message
+# where "ERROR" indicates an error condition.
+# LOGWATCH_DETAIL_LEVEL > 0 shows all, else just the errors
+
+my $Detail = $ENV{'LOGWATCH_DETAIL_LEVEL'} || 0;
+
+while (defined($ThisLine = <STDIN>)) {
+   chomp($ThisLine);
+   next if ($ThisLine eq "");
+   if ( ($Detail >= 5) and ($ThisLine =~ / APP\[[^\]]*\]: .*$/) ) {
+      $APPWatch{$ThisLine}++;
+   } elsif ($ThisLine =~ / APP\[[^\]]*\]: ERROR .*$/) {
+      $APPWatch{$ThisLine}++;
+   }
+}
+
+print "\n";
+if (keys %APPWatch) {
+   foreach $ThisOne (sort {$a cmp $b} keys %APPWatch) {
+      print $ThisOne . "\n";
+   }
+} else {
+  print "(No application log entries)\n"
+}
+
+exit(0);
+
+# vi: shiftwidth=3 tabstop=3 syntax=perl et
+# Local Variables:
+# mode: perl
+# perl-indent-level: 3
+# indent-tabs-mode: nil
+# End:
